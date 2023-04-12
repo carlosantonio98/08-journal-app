@@ -1,8 +1,10 @@
+import { BrowserRouter } from "react-router-dom"
+import { AppRouter } from "./router/AppRouter"
 
 export const JournalApp = () => {
-  return (
-    <>
-        <h1>Hola Mundo</h1>
-    </>
-  )
+    return (
+        <BrowserRouter>
+            <AppRouter />
+        </BrowserRouter>
+    )
 }
