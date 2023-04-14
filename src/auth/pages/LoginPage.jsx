@@ -1,8 +1,73 @@
+import { Link as RouterLink } from 'react-router-dom';
+import { Grid, Typography, TextField, Button, Link } from '@mui/material';
+import { Google } from '@mui/icons-material';
 
 export const LoginPage = () => {
     return (
         <>
-            <h1>Login page</h1>
+            {/* Material ui trabaja en mobileFirst */}
+            <Grid
+                container
+                spacing={ 0 }
+                direction="column"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ minHeight: '100vh', backgroundColor: 'primary.main', padding: 4 }}
+            >
+
+                <Grid
+                    item
+                    className="box-shadow"
+                    xs={ 3 }
+                    sx={{ backgroundColor: 'white', padding: 3, borderRadius: 2 }}
+                >
+
+                    <Typography variant="h5" sx={{ mb: 1 }}>Login</Typography>
+
+                    <form>
+                        <Grid container>
+                            <Grid item xs={ 12 } sx={{ mt: 2 }}>
+                                <TextField
+                                    label="Correo" 
+                                    type="email" 
+                                    placeholder="correo@google.com"
+                                    fullWidth
+                                />
+                            </Grid>
+                            <Grid item xs={ 12 } sx={{ mt: 2 }}>
+                                <TextField
+                                    label="Contraseña" 
+                                    type="password" 
+                                    placeholder="Contraseña"
+                                    fullWidth
+                                />
+                            </Grid>
+
+                            <Grid container spacing={ 2 } sx={{ mb: 2, mt: 1 }}>
+                                <Grid item xs={ 12 } md={ 6 }>
+                                    <Button variant="contained" fullWidth>
+                                        Login
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={ 12 } md={ 6 }>
+                                    <Button variant="contained" fullWidth>
+                                        <Google />
+                                        <Typography sx={{ ml: 1 }}>Google</Typography>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+
+                            <Grid container direction="row" justifyContent="end">
+                                <Link component={ RouterLink } color="inherit" to="/auth/register">  {/* Le pasamos el componente del link que nos da el react-router-dom para poder navegar en nuestras rutas de la app, Este <Link></Link > no es el de react sino el de MUI por lo tanto es solo el diseño y para que funcione como los link de react-router tenemos que especificarselo en la propiedad component */}
+                                    Crear una cuenta
+                                </Link>
+                            </Grid>
+
+                        </Grid>
+                    </form>
+
+                </Grid>
+            </Grid>
         </>
     )
 }
