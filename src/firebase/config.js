@@ -16,8 +16,8 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const FirebaseApp = initializeApp(firebaseConfig);
+export const FirebaseApp  = initializeApp(firebaseConfig);
 export const FirebaseAuth = getAuth( FirebaseApp );
-export const FirebaseDB = getFirestore( FirebaseApp );
+export const FirebaseDB   = getFirestore( FirebaseApp );
 
 // Objetos que necesito para interactuar con firebase: FirebaseApp, FirebaseAuth y FirebaseDB
