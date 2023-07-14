@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { Grid, Typography, TextField, Button, Link } from '@mui/material';
 import { AuthLayout } from '../layout/AuthLayout';
 import { useForm } from '../../hooks';
 
 const formData = {
-    email: 'carlos@google.com',
-    password: '123456',
-    displayName: 'Carlos'
+    email: '',
+    password: '',
+    displayName: ''
 }
 
 const formValidations = {
@@ -17,15 +18,16 @@ const formValidations = {
 
 export const RegisterPage = () => {
 
+    const [formSubmitted, setFormSubmitted] = useState(false);
+
     const { 
         formState, displayName, email, password, onInputChange,
         isFormValid, displayNameValid, emailValid, passwordValid
     } = useForm(formData, formValidations);
 
-    console.log( displayNameValid );
-
     const onSubmit = ( event ) => {
         event.preventDefault();
+        setFormSubmitted(true);
         console.log( formState );
     }
 
@@ -44,6 +46,8 @@ export const RegisterPage = () => {
                                 name="displayName"
                                 value={ displayName }
                                 onChange={ onInputChange }
+                                error={ !!displayNameValid && formSubmitted }
+                                helperText={ displayNameValid }
                             />
                         </Grid>
 
@@ -56,6 +60,8 @@ export const RegisterPage = () => {
                                 name="email"
                                 value={ email }
                                 onChange={ onInputChange }
+                                error={ !!emailValid && formSubmitted }
+                                helperText={ emailValid }
                             />
                         </Grid>
 
@@ -68,6 +74,8 @@ export const RegisterPage = () => {
                                 name="password"
                                 value={ password }
                                 onChange={ onInputChange }
+                                error={ !!passwordValid && formSubmitted }
+                                helperText={ passwordValid }
                             />
                         </Grid>
 

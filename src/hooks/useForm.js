@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 export const useForm = ( initialForm = {}, formValidations = {} ) => {
   
@@ -9,6 +9,14 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
       createValidators();
     }, [formState]) // Cada que cambie el formState se ejecutara el createValidators().
     
+    const isFormValid = useMemo( () => {  // Usamos el useMemo para memorizar este valor, y solo se vuelva a reprocesar solo si el formValidation cambia, esto con la finalidad de que no se vuelva a reprocesar o ejecutar esto cuando yo llame a una función que no tiene nada que ver con el formValidation o queramos llamar una función de otro estado que no necesariamente toca el formValidation. Esto es una BUENA PRACTICA.
+
+        for (const formValue of Object.keys( formValidation )) {
+           if ( formValidation[formValue] != null ) return false;
+        }
+
+        return true;
+    }, [ formValidation ]);
 
     const onInputChange = ({ target }) => {
         const { name, value } = target;
@@ -33,6 +41,7 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
         }
 
         setFormValidation( formCheckedValues );
+        console.log(formCheckedValues);
     }
 
     return {
@@ -41,6 +50,7 @@ export const useForm = ( initialForm = {}, formValidations = {} ) => {
         onInputChange,
         onResetForm,
 
-        ...formValidation
+        ...formValidation,
+        isFormValid
     }
 }
