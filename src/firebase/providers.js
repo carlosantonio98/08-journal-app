@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, updateProfile } from 'firebase/auth';
 import { FirebaseAuth } from './config';
 
 const googleProvider = new GoogleAuthProvider();
@@ -32,14 +32,16 @@ export const singInWithGoogle = async() => {
 }
 
 export const registerUserWithEmailPassword = async({ email, password, displayName }) => {
-
     try {
 
         console.log({ email, password, displayName});
-        const resp = await createUserWithEmailAndPassword( FirebaseAuth, email, password );
+        const resp = await createUserWithEmailAndPassword( FirebaseAuth, email, password );  // Aparte de crear el registro del usuario automaticamente este inicia sesión en nuestra app
         const { uid, photoURL } = resp.user;
-        console.log(resp);
-        // TODO: actualizar el displayName
+        
+        await updateProfile(  // Actualiza los datos del perfil del usuario
+            FirebaseAuth.currentUser, // Obtiene el usuario que esta autenticado actualmente
+            { displayName }  // actualizamos lo que queremos
+        );
 
         return {
             ok: true,
