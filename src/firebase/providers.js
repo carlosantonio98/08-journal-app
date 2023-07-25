@@ -70,3 +70,7 @@ export const loginWithEmailPassword = async({ email, password }) => {
         return { ok: false, errorMessage: error.message }
     }
 }
+
+export const logoutFirebase = async() => {
+    return await FirebaseAuth.signOut();  // Cerramos sesión(esto cierra google, firebase, twitter, facebook, apple, microsoft, cierra todo, si nosotros estubieramos trabajando con cualquier otro metodo de autenticación).
+}
