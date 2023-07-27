@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { IconButton } from '@mui/material';
 import { AddOutlined } from '@mui/icons-material';
 
@@ -9,6 +9,7 @@ import { startNewNote } from '../../store/journal';
 export const JournalPage = () => {
 
     const dispatch = useDispatch();
+    const { isSaving, active } = useSelector( status => status.journal );
 
     const onClickNewNote = () => {
         dispatch( startNewNote() );
@@ -17,15 +18,16 @@ export const JournalPage = () => {
     return (
         <JournalLayout>
 
-            {/* <Typography>Ad et dolor proident occaecat esse anim est consequat velit aliqua aliquip reprehenderit. Id excepteur et elit fugiat proident exercitation non enim reprehenderit deserunt tempor tempor. Veniam duis ullamco proident in do laboris ex adipisicing sint sit.</Typography> */}
-
-            {/* <NothingSelectedView /> */}
-            
-            <NoteView />
+            {
+                (!!active)
+                    ? <NoteView />
+                    : <NothingSelectedView />
+            }
 
             <IconButton
                 onClick={ onClickNewNote }
                 size='large'
+                disabled={ isSaving }
                 sx={{   // No usamos el style para asignar estilo, porque este no tiene acceso global a las propiedades del theme
                     color: 'white',
                     backgroundColor: 'error.main',
