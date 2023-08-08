@@ -13,7 +13,7 @@ export const startNewNote = () => {
 
         const newNote = {
             title: '',
-            description: '',
+            body: '',
             date: new Date().getTime()
         }
 
