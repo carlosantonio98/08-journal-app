@@ -1,7 +1,7 @@
 import { collection, doc, setDoc } from 'firebase/firestore/lite';
 import { FirebaseDB } from '../../firebase/config';
 import { addNewEmptyNote, setActiveNote, savingNewNote, setNotes, setSaving, updateNote } from './';
-import { loadNotes } from '../../helpers';
+import { fileUpload, loadNotes } from '../../helpers';
 
 // La nomenclatura del start es para indicar que comienza el proceso
 export const startNewNote = () => {
@@ -58,6 +58,15 @@ export const startSaveNote = () => {
         await setDoc( docRef, noteToFirestore, { merge: true } );  // Si el documento no existe, entonces se crea. Colocamos el merge para que se unan estos datos con los que estan en la bd
 
         dispatch( updateNote( note ) );
+
+    }
+}
+
+export const startUploadingFiles = ( files = [] ) => {
+    return async( dispatch ) => {
+        dispatch( setSaving() );
+
+        await fileUpload( files[0] );
 
     }
 }
